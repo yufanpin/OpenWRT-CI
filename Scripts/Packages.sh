@@ -49,7 +49,12 @@ UPDATE_PACKAGE "argon" "sbwml/luci-theme-argon" "openwrt-24.10"
 UPDATE_PACKAGE "theme-kucat" "sirpdboy/luci-theme-kucat" "js"
 UPDATE_PACKAGE "kucat-config" "sirpdboy/luci-app-kucat-config" "main"
 
-UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
+# UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
+
+# 使用immortalwrt的homeproxy
+UPDATE_PACKAGE "homeproxy" "immortalwrt/homeproxy" "master"
+
+
 UPDATE_PACKAGE "nikki" "nikkinikki-org/OpenWrt-nikki" "main"
 UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev" "pkg"
 UPDATE_PACKAGE "passwall" "xiaorouji/openwrt-passwall" "main" "pkg"
