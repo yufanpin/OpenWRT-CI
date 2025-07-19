@@ -54,6 +54,8 @@ UPDATE_PACKAGE "kucat-config" "sirpdboy/luci-app-kucat-config" "main"
 # 使用immortalwrt的homeproxy
 UPDATE_PACKAGE "homeproxy" "immortalwrt/homeproxy" "master"
 
+# 添加oaf防沉迷插件
+UPDATE_PACKAGE "OpenAppFilter" "destan19/OpenAppFilter" "master"
 
 UPDATE_PACKAGE "nikki" "nikkinikki-org/OpenWrt-nikki" "main"
 UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev" "pkg"
