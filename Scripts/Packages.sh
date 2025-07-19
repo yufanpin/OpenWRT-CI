@@ -60,6 +60,8 @@ UPDATE_PACKAGE "OpenAppFilter" "destan19/OpenAppFilter" "master"
 UPDATE_PACKAGE "luci-app-advancedplus" "sirpdboy/luci-app-advancedplus" "main"
 # 添加设置向导
 UPDATE_PACKAGE "luci-app-wizard" "kiddin9/luci-app-wizard" "main"
+#添加看门狗
+UPDATE_PACKAGE "luci-app-watchdog" "sirpdboy/luci-app-watchdog" "main"
 
 UPDATE_PACKAGE "nikki" "nikkinikki-org/OpenWrt-nikki" "main"
 UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev" "pkg"
