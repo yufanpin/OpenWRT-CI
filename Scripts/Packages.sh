@@ -69,6 +69,8 @@ UPDATE_PACKAGE "diskman" "sbwml/luci-app-diskman" "main"
 UPDATE_PACKAGE "diskmanager" "4IceG/luci-app-mini-diskmanager" "main"
 UPDATE_PACKAGE "easytier" "EasyTier/luci-app-easytier" "main"
 UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "v5" "" "v2dat"
+#删除 mosdns 重复 init 脚本（mosdns 二进制包已自带）
+rm -f ./luci-app-mosdns/luci-app-mosdns/root/etc/init.d/mosdns 2>/dev/null || true
 UPDATE_PACKAGE "netspeedtest" "sirpdboy/netspeedtest" "main" "" "homebox ookla-speedtest"
 UPDATE_PACKAGE "netwizard" "sirpdboy/luci-app-netwizard" "main"
 UPDATE_PACKAGE "openlist2" "sbwml/luci-app-openlist2" "main"
@@ -79,6 +81,12 @@ UPDATE_PACKAGE "quickfile" "sbwml/luci-app-quickfile" "main"
 UPDATE_PACKAGE "timecontrol" "sirpdboy/luci-app-timecontrol" "main"
 UPDATE_PACKAGE "viking" "VIKINGYFY/packages" "main" "" "gecoosac luci-app-timewol luci-app-wolplus"
 UPDATE_PACKAGE "vnt" "lmq8267/luci-app-vnt" "main"
+
+UPDATE_PACKAGE "luci-app-podman" "Zerogiven-OpenWRT-Packages/luci-app-podman" "main"
+UPDATE_PACKAGE "luci-app-wizard" "kiddin9/luci-app-wizard" "main"
+UPDATE_PACKAGE "OpenAppFilter" "destan19/OpenAppFilter" "master" "" "luci-app-oaf oaf open-app-filter"
+UPDATE_PACKAGE "luci-app-gecoosac" "laipeng668/luci-app-gecoosac" "main" "" "gecoosac"
+UPDATE_PACKAGE "luci-app-easymesh" "torguardvpn/luci-app-easymesh" "main"
 
 #更新软件包版本
 UPDATE_VERSION() {
