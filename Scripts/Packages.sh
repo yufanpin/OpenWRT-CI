@@ -83,10 +83,11 @@ UPDATE_PACKAGE "viking" "VIKINGYFY/packages" "main" "" "gecoosac luci-app-timewo
 UPDATE_PACKAGE "vnt" "lmq8267/luci-app-vnt" "main"
 
 UPDATE_PACKAGE "luci-app-podman" "Zerogiven-OpenWRT-Packages/luci-app-podman" "main"
-UPDATE_PACKAGE "luci-app-wizard" "kiddin9/luci-app-wizard" "main"
+
 UPDATE_PACKAGE "OpenAppFilter" "destan19/OpenAppFilter" "master" "" "luci-app-oaf oaf open-app-filter"
 UPDATE_PACKAGE "luci-app-gecoosac" "laipeng668/luci-app-gecoosac" "main" "" "gecoosac"
 UPDATE_PACKAGE "luci-app-easymesh" "torguardvpn/luci-app-easymesh" "main"
+UPDATE_PACKAGE "luci-app-change-mac" "muink/luci-app-change-mac" "main"
 
 #更新软件包版本
 UPDATE_VERSION() {
