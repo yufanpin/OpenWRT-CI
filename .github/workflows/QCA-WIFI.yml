@@ -2,7 +2,7 @@
 # Copyright (C) 2026 VIKINGYFY
 
 #CI项目
-name: QCA-ALL
+name: QCA-WIFI
 
 #CI计划
 on:
@@ -35,7 +35,7 @@ jobs:
       fail-fast: false
       #max-parallel: 3
       matrix:
-        CONFIG: [IPQ60XX-WIFI-YES, IPQ60XX-WIFI-NO, IPQ807X-WIFI-YES, IPQ807X-WIFI-NO]
+        CONFIG: [IPQ60XX-WIFI-YES, IPQ807X-WIFI-YES]
         SOURCE: [VIKINGYFY/immortalwrt]
         BRANCH: [main]
 
