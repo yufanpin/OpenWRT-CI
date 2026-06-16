@@ -56,7 +56,6 @@ UPDATE_PACKAGE "kucat-config" "sirpdboy/luci-app-kucat-config" "master"
 
 UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
 
-UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev" "pkg"
 UPDATE_PACKAGE "passwall" "Openwrt-Passwall/openwrt-passwall" "main" "pkg"
 UPDATE_PACKAGE "passwall2" "Openwrt-Passwall/openwrt-passwall2" "main" "pkg"
 
