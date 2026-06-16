@@ -129,6 +129,13 @@ UPDATE_VERSION() {
 #UPDATE_VERSION "软件包名" "测试版，true，可选，默认为否"
 UPDATE_VERSION "sing-box"
 
+#大鹅代理(kenzok8 daede)
+rm -rf dae daed luci-app-daede openwrt-daede 2>/dev/null
+git clone --depth=1 --single-branch --branch main https://github.com/kenzok8/openwrt-daede.git
+cp -rf openwrt-daede/dae openwrt-daede/daed openwrt-daede/luci-app-daede ./
+rm -rf openwrt-daede
+echo "dae/daed/luci-app-daede cloned successfully!"
+
 #引入私有扩展脚本
 if [ -f "$GITHUB_WORKSPACE/Scripts/PRIVATE.sh" ]; then
 	source "$GITHUB_WORKSPACE/Scripts/PRIVATE.sh"

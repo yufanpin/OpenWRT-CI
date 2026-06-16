@@ -68,6 +68,21 @@ if [[ "${WRT_TARGET^^}" == *"QUALCOMMAX"* ]]; then
 	#其他调整
 	echo "CONFIG_PACKAGE_kmod-usb-serial-qualcomm=y" >> ./.config
 
+	#内核扩容(daede/eBPF 需要更大的内核)
+	for MK_FILE in target/linux/qualcommax/image/*.mk; do
+		[ -f "$MK_FILE" ] && sed -i 's/KERNEL_SIZE := [0-9]*k/KERNEL_SIZE := 12288k/g' "$MK_FILE"
+	done
+
+	#固定ARM64 perf config(防止kernel 6.18+交互式菜单导致CI卡住)
+	echo "# CONFIG_ARM64_BRBE is not set" >> ./.config
+	echo "# CONFIG_ARM_CCI_PMU is not set" >> ./.config
+	echo "# CONFIG_ARM_CCN is not set" >> ./.config
+	echo "# CONFIG_ARM_CMN is not set" >> ./.config
+	echo "# CONFIG_ARM_NI is not set" >> ./.config
+	echo "# CONFIG_ARM_SMMU_V3_PMU is not set" >> ./.config
+	echo "# CONFIG_ARM_DSU_PMU is not set" >> ./.config
+	echo "# CONFIG_ARM_SPE_PMU is not set" >> ./.config
+
 	#无WIFI配置调整Q6大小
 	if [[ "${WRT_CONFIG,,}" == *"wifi"* && "${WRT_CONFIG,,}" == *"no"* ]]; then
 		find $DTS_PATH -type f ! -iname '*nowifi*' -exec sed -i 's/ipq\(6018\|8074\).dtsi/ipq\1-nowifi.dtsi/g' {} +
