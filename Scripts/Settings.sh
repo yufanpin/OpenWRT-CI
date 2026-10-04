@@ -39,7 +39,11 @@ sed -i "s/hostname='.*'/hostname='$WRT_NAME'/g" $CFG_FILE
 echo "CONFIG_PACKAGE_luci=y" >> ./.config
 echo "CONFIG_LUCI_LANG_zh_Hans=y" >> ./.config
 echo "CONFIG_PACKAGE_luci-theme-$WRT_THEME=y" >> ./.config
-echo "CONFIG_PACKAGE_luci-app-$WRT_THEME-config=y" >> ./.config
+# 仅当主题自带独立 config 插件（如 luci-app-argon-config）时才启用，
+# noobwrt 等内建设置页的主题没有独立 config 包，避免生成悬空配置
+if [ -d "./package/luci-app-$WRT_THEME-config" ] || [ -d "./package/luci-theme-$WRT_THEME/luci-app-$WRT_THEME-config" ]; then
+	echo "CONFIG_PACKAGE_luci-app-$WRT_THEME-config=y" >> ./.config
+fi
 
 #引入私有扩展配置
 if [ -f "$GITHUB_WORKSPACE/Config/PRIVATE.txt" ]; then
