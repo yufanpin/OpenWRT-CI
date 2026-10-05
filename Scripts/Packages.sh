@@ -72,7 +72,7 @@ UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "v5" "" "v2dat"
 UPDATE_PACKAGE "netspeedtest" "sirpdboy/netspeedtest" "main" "" "homebox ookla-speedtest"
 # 注意:该插件为京东云 RE-CS-02 定制,按 radio1(2.4G) 与 radio2(非DFS 5G) 绑定来宾射频,
 # 跳过仅 DFS 的 radio0。安装本身不改动任何配置,需在 LuCI 里点应用后才写入 network/dhcp/firewall/wireless。
-UPDATE_PACKAGE "luci-app-jdcguest" "yufanpin/luci-app-jdcguest" "main"
+#UPDATE_PACKAGE "luci-app-jdcguest" "yufanpin/luci-app-jdcguest" "main"
 UPDATE_PACKAGE "luci-app-netstat" "nooblk-98/luci-app-netstat" "main"
 UPDATE_PACKAGE "netwizard" "sirpdboy/luci-app-netwizard" "main"
 UPDATE_PACKAGE "openlist2" "sbwml/luci-app-openlist2" "main"
