@@ -57,7 +57,8 @@ UPDATE_PACKAGE "noobwrt" "nooblk-98/luci-theme-noobwrt" "master"
 
 UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
 
-UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev" "pkg"
+# 已停用 openclash，恢复时需同时打开 Config/GENERAL.txt 中的 CONFIG_PACKAGE_luci-app-openclash
+#UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev" "pkg"
 UPDATE_PACKAGE "passwall" "Openwrt-Passwall/openwrt-passwall" "main" "pkg"
 UPDATE_PACKAGE "passwall2" "Openwrt-Passwall/openwrt-passwall2" "main" "pkg"
 
