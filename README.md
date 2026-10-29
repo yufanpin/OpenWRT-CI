@@ -16,6 +16,26 @@ https://github.com/VIKINGYFY/packages.git
 
 # OpenWRT-CI
 
+## PPE 分支定制
+
+本分支基于上游 `VIKINGYFY/OpenWRT-CI`，保留上游 CI 与多平台构建支持，并加入以下固件定制：
+
+- 默认主机名：`HOMR`
+- 默认 Wi-Fi 名称：`Superman`
+- 默认 Wi-Fi 密码：`@1234567890`
+- OWRT-ALL 与 QCA Wi-Fi 固件默认管理地址：`10.0.0.1`
+- QCA 无 Wi-Fi 固件默认管理地址：`192.168.10.1`
+- LuCI 系统页面编译标识：`Built by Superman`
+
+### 预置服务
+
+- AdGuard Home：DNS 去广告、查询日志与设备域名访问记录
+- Aria2：HTTP/HTTPS、BT 种子、磁力链接和断点续传下载
+- MosDNS：本地 DNS 分流与解析优化
+- OpenAppFilter（OAF 6.1）：应用访问控制与网络管理
+
+以上服务均已加入通用和测试固件配置；其中 OpenAppFilter 使用 `destan19/OpenAppFilter` 的 `oaf-6.1` 分支。
+
 官方版：
 
 https://github.com/immortalwrt/immortalwrt.git
