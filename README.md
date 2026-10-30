@@ -29,7 +29,6 @@ https://github.com/VIKINGYFY/packages.git
 
 ### 预置服务
 
-- AdGuard Home：DNS 去广告、查询日志与设备域名访问记录
 - Aria2：HTTP/HTTPS、BT 种子、磁力链接和断点续传下载
 - MosDNS：本地 DNS 分流与解析优化
 - OpenAppFilter（OAF 6.1）：应用访问控制与网络管理
