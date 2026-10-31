@@ -65,6 +65,7 @@ UPDATE_PACKAGE "passwall2" "Openwrt-Passwall/openwrt-passwall2" "main" "pkg"
 
 UPDATE_PACKAGE "diskmanager" "4IceG/luci-app-mini-diskmanager" "main"
 UPDATE_PACKAGE "harbor-file" "destan19/luci-app-harbor-file" "main"
+UPDATE_PACKAGE "guest-wifi" "kiddin9/op-packages" "main" "pkg"
 UPDATE_PACKAGE "wechatpush" "tty228/luci-app-wechatpush" "master"
 UPDATE_PACKAGE "easytier" "EasyTier/luci-app-easytier" "main"
 UPDATE_PACKAGE "qmodem" "FUjr/QModem" "main"
