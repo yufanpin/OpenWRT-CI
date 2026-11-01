@@ -30,10 +30,11 @@ https://github.com/VIKINGYFY/packages.git
 ### 预置服务
 
 - Aria2：HTTP/HTTPS、BT 种子、磁力链接和断点续传下载
-- MosDNS：本地 DNS 分流与解析优化
 - OpenAppFilter（OAF 6.1）：应用访问控制与网络管理
+- Astra DNS：Rust DNS 核心与 LuCI 管理界面，核心作为 OpenWrt 包随固件编译
+- LuCI 2FA：为 LuCI 登录提供 TOTP/HOTP 二次验证；固件预装插件但默认不启用
 
-以上服务均已加入通用和测试固件配置；其中 OpenAppFilter 使用 `destan19/OpenAppFilter` 的 `oaf-6.1` 分支。
+Aria2 和 OpenAppFilter 已加入通用及测试固件配置；Astra DNS 和 LuCI 2FA 已加入通用固件配置。Astra DNS 的 LuCI 包依赖并安装随固件编译的核心程序。LuCI 2FA 安装后需在“系统 → 插件”中配置并启用。其中 OpenAppFilter 使用 `destan19/OpenAppFilter` 的 `oaf-6.1` 分支。
 
 官方版：
 

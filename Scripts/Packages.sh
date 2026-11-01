@@ -10,7 +10,7 @@ UPDATE_PACKAGE() {
 	local PKG_SPECIAL=$4
 	local PKG_LIST=("$PKG_NAME" $5)  # 第5个参数为自定义名称列表
 	local REPO_NAME=${PKG_REPO#*/}
-	local REPO_PATH="./package/$REPO_NAME"
+	local REPO_PATH=${6:-"./package/$REPO_NAME"}
 
 	echo " "
 
@@ -72,7 +72,7 @@ UPDATE_PACKAGE "viking" "VIKINGYFY/packages" "main" "" "axonhub gecoosac miniupn
 UPDATE_PACKAGE "vnt" "lmq8267/luci-app-vnt" "main"
 
 UPDATE_PACKAGE "diskman" "sbwml/luci-app-diskman" "main"
-UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "v5" "" "v2dat"
+# UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "v5" "" "v2dat"
 UPDATE_PACKAGE "openlist2" "sbwml/luci-app-openlist2" "main"
 UPDATE_PACKAGE "qbittorrent" "sbwml/luci-app-qbittorrent" "master" "" "qt6base qt6tools rblibtorrent"
 UPDATE_PACKAGE "quickfile" "sbwml/luci-app-quickfile" "main"
@@ -95,6 +95,41 @@ UPDATE_PACKAGE "mt5700" "LianXia233/luci-app-mt5700" "main"
 UPDATE_PACKAGE "mt5700m" "LianXia233/luci-app-mt5700m" "main"
 UPDATE_PACKAGE "netmonitor" "LianXia233/luci-app-netmonitor" "main"
 UPDATE_PACKAGE "qmodem-generic" "LianXia233/luci-app-qmodem-generic" "main"
+
+# Astra DNS core and LuCI interface. The core repository is a Cargo project,
+# so attach our OpenWrt package recipe after cloning its upstream source.
+UPDATE_PACKAGE "astra-dns" "astra-sec/astra-dns" "master"
+if [ ! -f "./package/astra-dns/Cargo.toml" ]; then
+	echo "Astra DNS Cargo.toml not found after cloning the core repository" >&2
+	exit 1
+fi
+cp "$GITHUB_WORKSPACE/Packages/astra-dns/Makefile" "./package/astra-dns/Makefile"
+UPDATE_PACKAGE "luci-app-astra-dns" "astra-sec/luci-app-astra-dns" "master"
+# The upstream LuCI package downloads the core at runtime; make the firmware
+# package depend on our natively built core instead.
+LUCI_ASTRA_MAKEFILE="./package/luci-app-astra-dns/Makefile"
+if ! grep -q '^LUCI_DEPENDS:=' "$LUCI_ASTRA_MAKEFILE"; then
+	echo "LUCI_DEPENDS not found in $LUCI_ASTRA_MAKEFILE" >&2
+	exit 1
+fi
+if ! grep -q '^LUCI_DEPENDS:=.*+astra-dns' "$LUCI_ASTRA_MAKEFILE"; then
+	sed -i 's/^LUCI_DEPENDS:=/LUCI_DEPENDS:=+astra-dns /' "$LUCI_ASTRA_MAKEFILE"
+fi
+
+# The 2FA repository keeps its OpenWrt package one directory below the repository
+# root. Clone to a staging path to avoid colliding with the final package name.
+UPDATE_PACKAGE "luci-plugin-2fa" "yufanpin/luci-plugin-2fa" "master" "" "" "./package/luci-plugin-2fa-source"
+TFA_PACKAGE_SOURCE="./package/luci-plugin-2fa-source/luci-plugin-2fa"
+if [ ! -f "$TFA_PACKAGE_SOURCE/Makefile" ]; then
+	echo "luci-plugin-2fa package Makefile not found in upstream repository" >&2
+	exit 1
+fi
+if [ -e "./package/luci-plugin-2fa" ]; then
+	echo "./package/luci-plugin-2fa already exists; refusing to overwrite it" >&2
+	exit 1
+fi
+mv "$TFA_PACKAGE_SOURCE" "./package/luci-plugin-2fa"
+rm -rf "./package/luci-plugin-2fa-source"
 
 #更新软件包版本
 UPDATE_VERSION() {
