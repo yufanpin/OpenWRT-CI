@@ -13,16 +13,25 @@ find ./feeds/luci/modules/luci-mod-status/ -type f -name "10_system.js" -exec se
 
 #修改默认WIFI账号密码
 WIFI_UC="./package/network/config/wifi-scripts/files/lib/wifi/mac80211.uc"
-if [ -f "$WIFI_UC" ]; then
+ROUTER_TOOL="./package/emortal/luci-app-router-tool/root/etc/config/router-tool"
+ROUTER_WIRELESS="./package/emortal/luci-app-router-tool/root/usr/share/router-tool/wireless.uc"
+if [ -f "$ROUTER_TOOL" ] && [ -f "$ROUTER_WIRELESS" ]; then
+	#保留mac80211初始SSID和密码，供router-tool识别并应用信道、带宽及加密预设
+	sed -i "s/ssid '.*'/ssid '$WRT_SSID'/g; s/key '.*'/key '$WRT_WORD'/g" "$ROUTER_TOOL"
+	#仅2.4GHz使用自定义SSID原名；其他频段继续使用上游后缀规则
+	if ! grep -Fq "if (custom_ssid && suffix == '2.4G') return custom_ssid;" "$ROUTER_WIRELESS"; then
+		if ! grep -Fq 'function default_ssid(uci, board, suffix, custom_ssid) {' "$ROUTER_WIRELESS"; then
+			echo "router-tool default_ssid changed; cannot apply 2.4GHz SSID customization" >&2
+			exit 1
+		fi
+		sed -i "/^function default_ssid(uci, board, suffix, custom_ssid) {/a\\\tif (custom_ssid \&\& suffix == '2.4G') return custom_ssid;" "$ROUTER_WIRELESS"
+	fi
+elif [ -f "$WIFI_UC" ]; then
+	#没有router-tool无线初始化逻辑时，直接设置mac80211默认值
 	#兼容源码中等号赋值和空格分隔的两种WIFI配置格式
 	sed -i "s/ssid='.*'/ssid='$WRT_SSID'/g; s/key='.*'/key='$WRT_WORD'/g; s/ssid '.*'/ssid '$WRT_SSID'/g; s/key '.*'/key '$WRT_WORD'/g" "$WIFI_UC"
 	#修改WIFI地区为美国
 	sed -i "s|^set \${s}\.country=.*|set \${s}.country='US'|" "$WIFI_UC"
-fi
-#router-tool使用UCI配置格式，单独同步默认WIFI名称和密码
-ROUTER_TOOL="./package/emortal/luci-app-router-tool/root/etc/config/router-tool"
-if [ -f "$ROUTER_TOOL" ]; then
-	sed -i "s/ssid '.*'/ssid '$WRT_SSID'/g; s/key '.*'/key '$WRT_WORD'/g" "$ROUTER_TOOL"
 fi
 
 CFG_FILE="./package/base-files/files/bin/config_generate"
