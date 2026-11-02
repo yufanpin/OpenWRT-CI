@@ -11,14 +11,18 @@ find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js" -exec sed -i
 #添加编译日期标识
 find ./feeds/luci/modules/luci-mod-status/ -type f -name "10_system.js" -exec sed -i "s/(\(luciversion || ''\))/(\1) + (' \/ Built by Superman')/g" {} +
 
+#修改默认WIFI账号密码
 WIFI_UC="./package/network/config/wifi-scripts/files/lib/wifi/mac80211.uc"
 if [ -f "$WIFI_UC" ]; then
-	#修改WIFI名称
-	sed -i "s/ssid='.*'/ssid='$WRT_SSID'/g" $WIFI_UC
-	#修改WIFI密码
-	sed -i "s/key='.*'/key='$WRT_WORD'/g" $WIFI_UC
+	#兼容源码中等号赋值和空格分隔的两种WIFI配置格式
+	sed -i "s/ssid='.*'/ssid='$WRT_SSID'/g; s/key='.*'/key='$WRT_WORD'/g; s/ssid '.*'/ssid '$WRT_SSID'/g; s/key '.*'/key '$WRT_WORD'/g" "$WIFI_UC"
 	#修改WIFI地区为美国
-	sed -i "s|^set \${s}\.country=.*|set \${s}.country='US'|" $WIFI_UC
+	sed -i "s|^set \${s}\.country=.*|set \${s}.country='US'|" "$WIFI_UC"
+fi
+#router-tool使用UCI配置格式，单独同步默认WIFI名称和密码
+ROUTER_TOOL="./package/emortal/luci-app-router-tool/root/etc/config/router-tool"
+if [ -f "$ROUTER_TOOL" ]; then
+	sed -i "s/ssid '.*'/ssid '$WRT_SSID'/g; s/key '.*'/key '$WRT_WORD'/g" "$ROUTER_TOOL"
 fi
 
 CFG_FILE="./package/base-files/files/bin/config_generate"
