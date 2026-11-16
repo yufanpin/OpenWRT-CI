@@ -26,10 +26,13 @@ https://github.com/VIKINGYFY/packages.git
 - OWRT-ALL 与 QCA Wi-Fi 固件默认管理地址：`10.0.0.1`
 - QCA 无 Wi-Fi 固件默认管理地址：`192.168.10.1`
 - LuCI 系统页面编译标识：`Built by Superman`
+- 联发科固件预装 QModem（源码取自 `yufanpin/QModem`），并使用内核通用 `qmi_wwan`
+- 联发科固件新增 BPI-R3 mini，单次编译同时产出 NAND 工厂镜像与 eMMC 用 `sysupgrade.itb`
 
 ### 预置服务
 
 - Aria2：HTTP/HTTPS、BT 种子、磁力链接和断点续传下载
+- QModem：5G/4G 模组管理，含 `luci-app-qmodem-next` 新版界面（联发科固件预装）
 - OpenAppFilter（OAF 6.1）：应用访问控制与网络管理
 - Astra DNS：Rust DNS 核心与 LuCI 管理界面，核心作为 OpenWrt 包随固件编译
 - LuCI 2FA：为 LuCI 登录提供 TOTP/HOTP 二次验证；固件预装插件但默认不启用
